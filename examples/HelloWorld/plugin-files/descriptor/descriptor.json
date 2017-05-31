@@ -1,0 +1,32 @@
+{
+  "componentName" : "HelloWorld",
+  "componentVersion" : "0.9.0",
+  "middlewareVersion" :  "0.9.0",
+  "sourceLanguage" : "java",
+  "pathName" : "mpf-java-example-helloworld-0.9.0.jar",
+  "launchArgs" : [],
+  "environmentVariables" : [],
+  "algorithm" : {
+    "name": "HelloWorld",
+    "description": "A simple example detection component.",
+    "actionType": "DETECTION",
+    "requiresCollection": {
+      "states": []
+    },
+    "providesCollection": {
+      "states": [
+        "DETECTION",
+        "DETECTION_HELLO",
+        "DETECTION_HELLO_JAVA"
+      ],
+      "properties": [
+        {
+          "name": "FRAME_INTERVAL",
+          "description": "This is a test property with a default value of 1.",
+          "type": "INT",
+          "defaultValue": "1"
+        }
+      ]
+    }
+  }
+}
