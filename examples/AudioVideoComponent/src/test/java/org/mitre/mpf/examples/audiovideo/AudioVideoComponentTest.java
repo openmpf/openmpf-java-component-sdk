@@ -106,9 +106,15 @@ public class AudioVideoComponentTest {
         try {
             List<MPFVideoTrack> tracks = audioVideoComponent.getDetections(job);
             assertEquals("Number of tracks is not as expected.", 1, tracks.size());
+            System.out.println(String.format("Number of video tracks = %d.", tracks.size()));
 
             for (int i = 0; i < tracks.size(); i++) {
                 MPFVideoTrack track = tracks.get(i);
+                System.out.println(String.format("Video track number %d", i));
+                System.out.println(String.format("  start frame = %d", track.getStartFrame()));
+                System.out.println(String.format("  stop frame = %d", track.getStopFrame()));
+                System.out.println(String.format("  confidence = %f", track.getConfidence()));
+                System.out.println(String.format("  metadata = %s", track.getDetectionProperties().get("METADATA")));
                 assertEquals("confidence does not match.", 0.8f, track.getConfidence(), 0.05f);
                 assertEquals("start frame does not match.", startFrame, track.getStartFrame());
                 assertEquals("stop frame does not match.", stopFrame, track.getStopFrame());

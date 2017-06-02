@@ -26,7 +26,6 @@
 
 package org.mitre.mpf.examples.hello;
 
-import junit.framework.TestCase;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -52,7 +51,7 @@ import static org.junit.Assert.fail;
  * getDetections() and support() methods are correctly implemented, the component will work properly.  In cases where
  * the init() or close() methods are overridden, those also should be tested.
  */
-public class HelloWorldComponentTest  extends TestCase {
+public class HelloWorldComponentTest {
 
     private HelloWorldComponent helloWorldComponent;
 
@@ -95,7 +94,7 @@ public class HelloWorldComponentTest  extends TestCase {
                 assertEquals("y left upper does not match.", 0, location.getYLeftUpper());
                 assertEquals("width does not match.", 100, location.getWidth());
                 assertEquals("height does not match.", 100, location.getHeight());
-                assertEquals("confidence does not match.", 0.8f, location.getConfidence());
+                assertEquals("confidence does not match.", 0.8f, location.getConfidence(), 0.01f);
                 assertEquals("metadata does not match.", "extra image location info", location.getDetectionProperties().get("METADATA"));
             }
         } catch (MPFComponentDetectionError e) {
@@ -106,7 +105,7 @@ public class HelloWorldComponentTest  extends TestCase {
 
     @Test
     public void testGetDetectionsVideo() throws Exception {
-        String uri = "RandomImageFile";
+        String uri = "RandomVideoFile";
 
         Map<String, String> jobProperties = new HashMap<String, String>();
         Map<String, String> mediaProperties = new HashMap<String, String>();
@@ -121,10 +120,16 @@ public class HelloWorldComponentTest  extends TestCase {
         try {
             List<MPFVideoTrack> tracks = helloWorldComponent.getDetections(job);
             assertEquals("Number of tracks is not as expected.", 1, tracks.size());
+            System.out.println(String.format("Number of video tracks = %d.", tracks.size()));
 
             for (int i = 0; i < tracks.size(); i++) {
                 MPFVideoTrack track = tracks.get(i);
-                assertEquals("confidence does not match.", 0.8f, track.getConfidence());
+                System.out.println(String.format("Video track number %d", i));
+                System.out.println(String.format("  start frame = %d", track.getStartFrame()));
+                System.out.println(String.format("  stop frame = %d", track.getStopFrame()));
+                System.out.println(String.format("  confidence = %f", track.getConfidence()));
+                System.out.println(String.format("  metadata = %s", track.getDetectionProperties().get("METADATA")));
+                assertEquals("confidence does not match.", 0.8f, track.getConfidence(), 0.01f);
                 assertEquals("start frame does not match.", startFrame, track.getStartFrame());
                 assertEquals("stop frame does not match.", stopFrame, track.getStopFrame());
                 assertEquals("metadata does not match.", "extra video track info", track.getDetectionProperties().get("METADATA"));
@@ -135,7 +140,7 @@ public class HelloWorldComponentTest  extends TestCase {
                     assertEquals("y left upper does not match.", 0, location.getYLeftUpper());
                     assertEquals("width does not match.", 100, location.getWidth());
                     assertEquals("height does not match.", 100, location.getHeight());
-                    assertEquals("confidence does not match.", 0.8f, location.getConfidence());
+                    assertEquals("confidence does not match.", 0.8f, location.getConfidence(), 0.01f);
                     assertEquals("metadata does not match.", "extra image location info", location.getDetectionProperties().get("METADATA"));
                 }
             }
@@ -169,7 +174,7 @@ public class HelloWorldComponentTest  extends TestCase {
                 System.out.println(String.format("  stop time = %d", track.getStopTime()));
                 System.out.println(String.format("  confidence = %f", track.getConfidence()));
                 System.out.println(String.format("  metadata = %s", track.getDetectionProperties().get("METADATA")));
-                assertEquals("confidence does not match.", 0.8f, track.getConfidence());
+                assertEquals("confidence does not match.", 0.8f, track.getConfidence(), 0.01f);
                 assertEquals("start time does not match.", startTime, track.getStartTime());
                 assertEquals("stop time does not match.", startTime + 1, track.getStopTime());
                 assertEquals("metadata does not match.", "extra audio track info", track.getDetectionProperties().get("METADATA"));

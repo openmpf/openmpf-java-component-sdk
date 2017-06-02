@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>mpf-java-example-helloworld</artifactId>
+    <artifactId>mpf-helloworld-java-example-component</artifactId>
 
     <properties>
         <junit.version>4.12</junit.version>
@@ -47,25 +47,6 @@
                     </archive>
                 </configuration>
             </plugin>
-            <!-- NOTE: Necessary to package dependencies into tar.gz -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <version>2.8</version>
-                <executions>
-                    <execution>
-                        <id>copy-dependencies</id>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>copy-dependencies</goal>
-                        </goals>
-                        <configuration>
-                            <useBaseVersion>false</useBaseVersion>
-                            <outputDirectory>${project.build.directory}/dependencies</outputDirectory>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
             <plugin>
                 <!-- Assembles the tar.gz which can be deployed as a component. assemblyDescriptor.xml defines the
                  tar.gz directory structure. -->
@@ -79,7 +60,7 @@
                             <goal>single</goal>
                         </goals>
                         <configuration>
-                            <finalName>HelloWorld</finalName>
+                            <finalName>JavaHelloWorldExample</finalName>
                             <descriptor>assemblyDescriptor.xml</descriptor>
                             <outputDirectory>target/plugin-packages</outputDirectory>
                             <appendAssemblyId>false</appendAssemblyId>
