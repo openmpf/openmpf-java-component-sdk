@@ -7,7 +7,7 @@
   "launchArgs" : [],
   "environmentVariables" : [],
   "algorithm" : {
-    "name": "AudioVideo",
+    "name": "JavaAudioVideo",
     "description": "An example detection component for audio processing of audio and video media.",
     "actionType": "DETECTION",
     "requiresCollection": {

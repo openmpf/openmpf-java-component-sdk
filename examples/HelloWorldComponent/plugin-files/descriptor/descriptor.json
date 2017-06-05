@@ -7,7 +7,7 @@
   "launchArgs" : [],
   "environmentVariables" : [],
   "algorithm" : {
-    "name": "HelloWorld",
+    "name": "JavaHelloWorld",
     "description": "A simple example detection component.",
     "actionType": "DETECTION",
     "requiresCollection": {
