@@ -39,7 +39,6 @@
     <modules>
         <module>audio-video-utils</module>
         <module>java-component-api</module>
-        <module>examples</module>
     </modules>
 
     <properties>
