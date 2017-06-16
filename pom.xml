@@ -37,8 +37,8 @@
     <name>OpenMPF Java Component SDK</name>
 
     <modules>
-        <module>audio-video-utils</module>
-        <module>java-component-api</module>
+        <module>detection/audio-video-utils</module>
+        <module>detection/java-component-api</module>
     </modules>
 
     <properties>
