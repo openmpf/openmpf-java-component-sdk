@@ -110,8 +110,8 @@ public abstract class MPFAudioAndVideoDetectionComponentAdapter extends MPFDetec
         }
 
         if (newStopFrame <= newStartFrame) {
-            LOG.error("Stop frame is less than the start frame.");
-            throw new MPFComponentDetectionError(MPFDetectionError.MPF_INVALID_STOP_FRAME, "Stop frame is less than the start frame.");
+            LOG.error("Stop frame <= start frame.");
+            throw new MPFComponentDetectionError(MPFDetectionError.MPF_INVALID_STOP_FRAME, "Stop frame <= start frame.");
         }
 
         // calculate start and stop times in milliseconds based on fps
