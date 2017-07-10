@@ -34,6 +34,7 @@
         <artifactId>openmpf-java-component-sdk</artifactId>
         <groupId>org.mitre.mpf</groupId>
         <version>0.9.0</version>
+        <relativePath>../../pom.xml</relativePath>
     </parent>
 
     <name>OpenMPF Audio-Video Utils</name>
