@@ -33,7 +33,8 @@
     <parent>
         <artifactId>openmpf-java-component-sdk</artifactId>
         <groupId>org.mitre.mpf</groupId>
-        <version>0.9.0</version>
+        <version>0.10.0</version>
+        <relativePath>../../pom.xml</relativePath>
     </parent>
 
     <artifactId>mpf-java-component-api</artifactId>
