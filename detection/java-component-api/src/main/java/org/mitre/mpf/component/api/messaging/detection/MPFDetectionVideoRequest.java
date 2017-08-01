@@ -25,11 +25,14 @@
  ******************************************************************************/
 
 package org.mitre.mpf.component.api.messaging.detection;
+import org.mitre.mpf.component.api.detection.MPFVideoTrack;
 
 public class MPFDetectionVideoRequest {
 
     private int startFrame;
     private int stopFrame;
+    private final boolean hasFeedForwardTrack;
+    private MPFVideoTrack feedForwardTrack;
 
     public int getStartFrame() {
         return startFrame;
@@ -47,12 +50,30 @@ public class MPFDetectionVideoRequest {
         this.stopFrame = stopFrame;
     }
 
-	public MPFDetectionVideoRequest(
-            int startFrame,
-            int stopFrame
-    ) {
+    public boolean hasFeedForwardTrack() {
+	return hasFeedForwardTrack;
+    }
+
+    public MPFVideoTrack getFeedForwardTrack() {
+	return feedForwardTrack;
+    }
+
+    // Constructor for a request that does not have a feed-forward track
+    public MPFDetectionVideoRequest(int startFrame,
+				    int stopFrame) {
         this.startFrame = startFrame;
         this.stopFrame = stopFrame;
+	this.hasFeedForwardTrack = false;
+    }
+
+    // Constructor for a request that has a feed-forward track
+    public MPFDetectionVideoRequest(int startFrame,
+				    int stopFrame,
+				    MPFVideoTrack track) {
+        this.startFrame = startFrame;
+        this.stopFrame = stopFrame;
+	this.hasFeedForwardTrack = true;
+	this.feedForwardTrack = track;
     }
 
 }

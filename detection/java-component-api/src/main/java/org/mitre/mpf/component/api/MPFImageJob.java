@@ -27,14 +27,37 @@
 package org.mitre.mpf.component.api;
 
 import java.util.Map;
+import org.mitre.mpf.component.api.detection.MPFImageLocation;
 
 /**
  * A job description for an image job.  The component will act on a single image medium.
  */
 public class MPFImageJob extends MPFJob {
+    private final boolean hasFeedForwardLocation;
+    private MPFImageLocation feedForwardLocation;
 
     /**
-     * Create a new job object for an image job.
+     *  An ImageJob may contain a feed-forward location from a previous stage
+     *  in the job pipeline.
+     *
+     * @return true if the job contains a valid feed-forward location; otherwise, false.
+     */
+    public boolean hasFeedForwardLocation() {
+	return hasFeedForwardLocation;
+    }
+
+    /**
+     *  An ImageJob may contain a feed-forward location from a previous stage
+     *  in the job pipeline.
+     *
+     * @return the feed-forward location
+     */
+    public MPFImageLocation getFeedForwardLocation() {
+	return feedForwardLocation;
+    }
+
+    /**
+     * Create a new job object for an image job that does not have a feed-forward location.
      *
      * @param jobName    The name of the job being run.  Useful for logging purposes
      * @param dataUri    The URI for the piece of media being processed.
@@ -46,5 +69,26 @@ public class MPFImageJob extends MPFJob {
     public MPFImageJob(String jobName, String dataUri, final Map<String, String> jobProperties,
                       final Map <String, String> mediaProperties) {
         super(jobName, dataUri, jobProperties, mediaProperties);
+	this.hasFeedForwardLocation=false;
+    }
+
+    /**
+     * Create a new job object for an image job that has a feed-forward location.
+     *
+     * @param jobName    The name of the job being run.  Useful for logging purposes
+     * @param dataUri    The URI for the piece of media being processed.
+     * @param jobProperties  Values for any properties the component requires.
+     * @param mediaProperties   Properties about the media being processed.  Image files with EXIF metadata will
+     *                          have "ROTATION", "HORIZONTAL_FLIP", and "EXIF_ORIENTATION" flags.  If the image source
+     *                          does not have EXIF metadata, no properties will be set.
+     */
+    public MPFImageJob(String jobName,
+		       String dataUri,
+		       final Map<String, String> jobProperties,
+		       final Map <String, String> mediaProperties,
+		       MPFImageLocation location) {
+        super(jobName, dataUri, jobProperties, mediaProperties);
+	this.hasFeedForwardLocation=true;
+	this.feedForwardLocation=location;
     }
 }
