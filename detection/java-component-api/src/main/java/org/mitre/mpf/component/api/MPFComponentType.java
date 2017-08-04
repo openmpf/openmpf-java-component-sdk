@@ -1,4 +1,14 @@
 /******************************************************************************
+ * NOTICE                                                                     *
+ *                                                                            *
+ * This software (or technical data) was produced for the U.S. Government     *
+ * under contract, and is subject to the Rights in Data-General Clause        *
+ * 52.227-14, Alt. IV (DEC 2007).                                             *
+ *                                                                            *
+ * Copyright 2017 The MITRE Corporation. All Rights Reserved.                 *
+ ******************************************************************************/
+
+/******************************************************************************
  * Copyright 2017 The MITRE Corporation                                       *
  *                                                                            *
  * Licensed under the Apache License, Version 2.0 (the "License");            *
@@ -14,13 +24,15 @@
  * limitations under the License.                                             *
  ******************************************************************************/
 
+package org.mitre.mpf.component.api;
 
- This project contains content developed by The MITRE Corporation. If this code
- is used in a deployment or embedded within another project, it is requested
- that you send an email to opensource@mitre.org in order to let us know where
- this software is being used.
+/**
+ * The complete set of supported Component Types
+ */
+public enum MPFComponentType {
 
-
- The above license applies to all of the Media Processing Framework (MPF)
- source code in the MPF core repository. Submodule repositories contain their
- own licensing information.
+    /**
+     * A component which is designed to detect some type of data in media files.
+     */
+    DETECTION
+}

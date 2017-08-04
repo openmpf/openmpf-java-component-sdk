@@ -30,45 +30,24 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <version>0.10.0</version>
-    <groupId>org.mitre.mpf</groupId>
-    <artifactId>openmpf-java-component-sdk</artifactId>
-    <packaging>pom</packaging>
-    <name>OpenMPF Java Component SDK</name>
+    <parent>
+        <artifactId>openmpf-java-component-sdk</artifactId>
+        <groupId>org.mitre.mpf</groupId>
+        <version>0.10.0</version>
+        <relativePath>../../pom.xml</relativePath>
+    </parent>
 
-    <modules>
-        <module>detection/audio-video-utils</module>
-        <module>detection/java-component-api</module>
-    </modules>
+    <name>OpenMPF Audio-Video Utils</name>
+    <artifactId>mpf-audio-video-utils</artifactId>
+    <packaging>jar</packaging>
 
-    <properties>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <rpm.maven.plugin.version>2.1.4</rpm.maven.plugin.version>
-        <rpmReleasePrefix>0</rpmReleasePrefix>
-        <gitBranch>unknown</gitBranch>
-        <jenkinsBuildNumber>0</jenkinsBuildNumber>
-        <maven.rpm.prefix>/opt/mpf</maven.rpm.prefix>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.build.timestamp.format>yyyy.MM.dd.HH.mm.ss</maven.build.timestamp.format>
-    </properties>
-
-    <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>rpm-maven-plugin</artifactId>
-                    <version>${rpm.maven.plugin.version}</version>
-                    <configuration>
-                        <group>Application</group>
-                        <!-- Disabled to prevent empty rpm for this project. Enabled in java-component-api -->
-                        <disabled>true</disabled>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-    </build>
+    <dependencies>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.12</version>
+        </dependency>
+    </dependencies>
 
 
 </project>

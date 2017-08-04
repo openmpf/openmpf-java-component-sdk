@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   ~ NOTICE                                                                    ~
   ~                                                                           ~
@@ -24,51 +23,34 @@
   ~ See the License for the specific language governing permissions and       ~
   ~ limitations under the License.                                            ~
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
-
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-
-    <version>0.10.0</version>
-    <groupId>org.mitre.mpf</groupId>
-    <artifactId>openmpf-java-component-sdk</artifactId>
-    <packaging>pom</packaging>
-    <name>OpenMPF Java Component SDK</name>
-
-    <modules>
-        <module>detection/audio-video-utils</module>
-        <module>detection/java-component-api</module>
-    </modules>
-
-    <properties>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <rpm.maven.plugin.version>2.1.4</rpm.maven.plugin.version>
-        <rpmReleasePrefix>0</rpmReleasePrefix>
-        <gitBranch>unknown</gitBranch>
-        <jenkinsBuildNumber>0</jenkinsBuildNumber>
-        <maven.rpm.prefix>/opt/mpf</maven.rpm.prefix>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.build.timestamp.format>yyyy.MM.dd.HH.mm.ss</maven.build.timestamp.format>
-    </properties>
-
-    <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>rpm-maven-plugin</artifactId>
-                    <version>${rpm.maven.plugin.version}</version>
-                    <configuration>
-                        <group>Application</group>
-                        <!-- Disabled to prevent empty rpm for this project. Enabled in java-component-api -->
-                        <disabled>true</disabled>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-    </build>
+<assembly xmlns="http://maven.apache.org/ASSEMBLY/2.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/ASSEMBLY/2.0.0 http://maven.apache.org/xsd/assembly-2.0.0.xsd">
 
 
-</project>
+    <id>audioVideo</id>
+    <formats>
+        <format>tar.gz</format>
+    </formats>
+
+    <fileSets>
+        <fileSet>
+            <directory>plugin-files</directory>
+            <outputDirectory>/</outputDirectory>
+        </fileSet>
+    </fileSets>
+
+    <dependencySets>
+        <dependencySet>
+            <outputDirectory>lib</outputDirectory>
+            <useProjectArtifact>false</useProjectArtifact>
+        </dependencySet>
+        <dependencySet>
+            <includes>
+                <include>${project.groupId}:${project.artifactId}</include>
+            </includes>
+            <useStrictFiltering>true</useStrictFiltering>
+        </dependencySet>
+    </dependencySets>
+
+</assembly>

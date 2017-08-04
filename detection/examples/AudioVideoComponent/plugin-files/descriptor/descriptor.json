@@ -1,0 +1,32 @@
+{
+  "componentName" : "JavaAudioVideoExample",
+  "componentVersion" : "0.10.0",
+  "middlewareVersion" :  "0.10.0",
+  "sourceLanguage" : "java",
+  "pathName" : "mpf-audiovideo-java-example-component-0.10.0.jar",
+  "launchArgs" : [],
+  "environmentVariables" : [],
+  "algorithm" : {
+    "name": "JavaAudioVideo",
+    "description": "An example detection component for audio processing of audio and video media.",
+    "actionType": "DETECTION",
+    "requiresCollection": {
+      "states": []
+    },
+    "providesCollection": {
+      "states": [
+        "DETECTION",
+        "DETECTION_AUDIOVIDEO",
+        "DETECTION_AUDIOVIDEO_JAVA"
+      ],
+      "properties": [
+        {
+          "name": "FRAME_INTERVAL",
+          "description": "This is a test property with a default value of 1.",
+          "type": "INT",
+          "defaultValue": "1"
+        }
+      ]
+    }
+  }
+}

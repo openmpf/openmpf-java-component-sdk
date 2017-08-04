@@ -32,13 +32,13 @@
 
     <version>0.10.0</version>
     <groupId>org.mitre.mpf</groupId>
-    <artifactId>openmpf-java-component-sdk</artifactId>
+    <artifactId>openmpf-java-component-examples</artifactId>
     <packaging>pom</packaging>
-    <name>OpenMPF Java Component SDK</name>
+    <name>OpenMPF Java Component Examples</name>
 
     <modules>
-        <module>detection/audio-video-utils</module>
-        <module>detection/java-component-api</module>
+        <module>AudioVideoComponent</module>
+        <module>HelloWorldComponent</module>
     </modules>
 
     <properties>
