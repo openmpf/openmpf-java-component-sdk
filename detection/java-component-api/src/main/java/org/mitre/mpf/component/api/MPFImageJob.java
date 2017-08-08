@@ -37,7 +37,7 @@ public class MPFImageJob extends MPFJob {
     private MPFImageLocation feedForwardLocation;
 
     /**
-     *  An ImageJob may contain a feed-forward location from a previous stage
+     *  An image job may contain a feed-forward location from a previous stage
      *  in the job pipeline.
      *
      * @return true if the job contains a valid feed-forward location; otherwise, false.
@@ -47,7 +47,7 @@ public class MPFImageJob extends MPFJob {
     }
 
     /**
-     *  An ImageJob may contain a feed-forward location from a previous stage
+     *  An image job may contain a feed-forward location from a previous stage
      *  in the job pipeline.
      *
      * @return the feed-forward location

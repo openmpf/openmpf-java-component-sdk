@@ -41,23 +41,23 @@ public class MPFAudioJob extends MPFJob {
     private MPFAudioTrack feedForwardTrack;
 
     /**
-     *  An AudioJob may contain a feed-forward track from a previous stage
+     *  An audio job may contain a feed-forward track from a previous stage
      *  in the job pipeline.
      *
      * @return true if the job contains a valid feed-forward track; otherwise, false.
      */
     public boolean hasFeedForwardTrack() {
-	return hasFeedForwardTrack;
+        return hasFeedForwardTrack;
     }
 
     /**
-     *  An AudioJob may contain a feed-forward track from a previous stage
+     *  An audio job may contain a feed-forward track from a previous stage
      *  in the job pipeline.
      *
      * @return the feed-forward track.
      */
     public MPFAudioTrack getFeedForwardTrack() {
-	return feedForwardTrack;
+        return feedForwardTrack;
     }
 
     /**
@@ -78,7 +78,7 @@ public class MPFAudioJob extends MPFJob {
         super(jobName, dataUri, jobProperties, mediaProperties);
         this.startTime=startTime;
         this.stopTime=stopTime;
-	this.hasFeedForwardTrack=false;
+        this.hasFeedForwardTrack=false;
     }
 
     /**
@@ -97,17 +97,17 @@ public class MPFAudioJob extends MPFJob {
      */
 
     public MPFAudioJob(String jobName,
-		       String dataUri,
-		       final Map<String, String> jobProperties,
+                       String dataUri,
+                       final Map<String, String> jobProperties,
                        final Map <String, String> mediaProperties,
-		       int startTime,
-		       int stopTime,
-		       MPFAudioTrack track) {
+                       int startTime,
+                       int stopTime,
+                       MPFAudioTrack track) {
         super(jobName, dataUri, jobProperties, mediaProperties);
         this.startTime=startTime;
         this.stopTime=stopTime;
-	this.hasFeedForwardTrack=true;
-	this.feedForwardTrack=track;
+        this.hasFeedForwardTrack=true;
+        this.feedForwardTrack=track;
     }
 
     /**

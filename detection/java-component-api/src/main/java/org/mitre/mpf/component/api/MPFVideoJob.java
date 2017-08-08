@@ -61,23 +61,23 @@ public class MPFVideoJob extends MPFJob {
     }
 
     /**
-     *  A VideoJob may contain a feed-forward track from a previous stage
+     *  A video job may contain a feed-forward track from a previous stage
      *  in the job pipeline.
      *
      * @return true if the job contains a valid feed-forward track; otherwise, false.
      */
     public boolean hasFeedForwardTrack() {
-	return hasFeedForwardTrack;
+        return hasFeedForwardTrack;
     }
 
     /**
-     *  A VideoJob may contain a feed-forward track from a previous stage
+     *  A video job may contain a feed-forward track from a previous stage
      *  in the job pipeline.
      *
      * @return the feed-forward track
      */
     public MPFVideoTrack getFeedForwardTrack() {
-	return feedForwardTrack;
+        return feedForwardTrack;
     }
 
     /**
@@ -98,7 +98,7 @@ public class MPFVideoJob extends MPFJob {
         super(jobName, dataUri, jobProperties, mediaProperties);
         this.startFrame=startFrame;
         this.stopFrame=stopFrame;
-	this.hasFeedForwardTrack=false;
+        this.hasFeedForwardTrack=false;
     }
 
     /**
@@ -116,16 +116,16 @@ public class MPFVideoJob extends MPFJob {
      * @param track       An instance of an MPFVideoTrack.
      */
     public MPFVideoJob(String jobName,
-		       String dataUri,
-		       final Map<String, String> jobProperties,
+                       String dataUri,
+                       final Map<String, String> jobProperties,
                        final Map <String, String> mediaProperties,
-		       int startFrame,
-		       int stopFrame,
-		       MPFVideoTrack track) {
+                       int startFrame,
+                       int stopFrame,
+                       MPFVideoTrack track) {
         super(jobName, dataUri, jobProperties, mediaProperties);
         this.startFrame=startFrame;
         this.stopFrame=stopFrame;
-	this.hasFeedForwardTrack=true;
-	this.feedForwardTrack=track;
+        this.hasFeedForwardTrack=true;
+        this.feedForwardTrack=track;
     }
 }
