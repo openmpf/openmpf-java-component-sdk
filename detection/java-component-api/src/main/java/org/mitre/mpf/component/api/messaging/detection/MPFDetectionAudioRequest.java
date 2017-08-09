@@ -31,7 +31,6 @@ public class MPFDetectionAudioRequest {
 
     private int startTime;
     private int stopTime;
-    private final boolean hasFeedForwardTrack;
     private MPFAudioTrack feedForwardTrack;
 
     public int getStartTime() {
@@ -50,30 +49,25 @@ public class MPFDetectionAudioRequest {
         this.stopTime = stopTime;
     }
 
-    public boolean hasFeedForwardTrack() {
-	return hasFeedForwardTrack;
-    }
-
     public MPFAudioTrack getFeedForwardTrack() {
-	return feedForwardTrack;
+        return feedForwardTrack;   // Could be null; be sure to check
     }
 
     // Constructor for a request that does not have a feed-forward track
     public MPFDetectionAudioRequest(int startTime,
-				    int stopTime) {
+                                    int stopTime) {
         this.startTime = startTime;
         this.stopTime = stopTime;
-	this.hasFeedForwardTrack = false;
+        this.feedForwardTrack = null;
     }
 
     // Constructor for a request that has a feed-forward track
     public MPFDetectionAudioRequest(int startTime,
-				    int stopTime,
-				    MPFAudioTrack track) {
+                                    int stopTime,
+                                    MPFAudioTrack track) {
         this.startTime = startTime;
         this.stopTime = stopTime;
-	this.hasFeedForwardTrack = true;
-	this.feedForwardTrack = track;
+        this.feedForwardTrack = track;
     }
 
 }

@@ -33,18 +33,7 @@ import org.mitre.mpf.component.api.detection.MPFImageLocation;
  * A job description for an image job.  The component will act on a single image medium.
  */
 public class MPFImageJob extends MPFJob {
-    private final boolean hasFeedForwardLocation;
     private MPFImageLocation feedForwardLocation;
-
-    /**
-     *  An image job may contain a feed-forward location from a previous stage
-     *  in the job pipeline.
-     *
-     * @return true if the job contains a valid feed-forward location; otherwise, false.
-     */
-    public boolean hasFeedForwardLocation() {
-	return hasFeedForwardLocation;
-    }
 
     /**
      *  An image job may contain a feed-forward location from a previous stage
@@ -53,7 +42,7 @@ public class MPFImageJob extends MPFJob {
      * @return the feed-forward location
      */
     public MPFImageLocation getFeedForwardLocation() {
-	return feedForwardLocation;
+        return feedForwardLocation;   // Could be null; be sure to check
     }
 
     /**
@@ -69,7 +58,7 @@ public class MPFImageJob extends MPFJob {
     public MPFImageJob(String jobName, String dataUri, final Map<String, String> jobProperties,
                       final Map <String, String> mediaProperties) {
         super(jobName, dataUri, jobProperties, mediaProperties);
-	this.hasFeedForwardLocation=false;
+        this.feedForwardLocation=null;
     }
 
     /**
@@ -83,12 +72,11 @@ public class MPFImageJob extends MPFJob {
      *                          does not have EXIF metadata, no properties will be set.
      */
     public MPFImageJob(String jobName,
-		       String dataUri,
-		       final Map<String, String> jobProperties,
-		       final Map <String, String> mediaProperties,
-		       MPFImageLocation location) {
+                       String dataUri,
+                       final Map<String, String> jobProperties,
+                       final Map <String, String> mediaProperties,
+                       MPFImageLocation location) {
         super(jobName, dataUri, jobProperties, mediaProperties);
-	this.hasFeedForwardLocation=true;
-	this.feedForwardLocation=location;
+        this.feedForwardLocation=location;
     }
 }

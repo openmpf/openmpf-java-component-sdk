@@ -29,24 +29,18 @@ import org.mitre.mpf.component.api.detection.MPFImageLocation;
 
 
 public class MPFDetectionImageRequest {
-    private final boolean hasFeedForwardLocation;
     private MPFImageLocation feedForwardLocation;
 
-    public boolean hasFeedForwardLocation() {
-	return hasFeedForwardLocation;
-    }
-
     public MPFImageLocation getFeedForwardLocation() {
-	return feedForwardLocation;
+        return feedForwardLocation;   // Could be null; be sure to check
     }
 
     public MPFDetectionImageRequest() {
-	this.hasFeedForwardLocation=false;
+        this.feedForwardLocation = null;
     }
 
     public MPFDetectionImageRequest(MPFImageLocation location) {
-	this.hasFeedForwardLocation=true;
-	this.feedForwardLocation=location;
+        this.feedForwardLocation = location;
     }
 
 }

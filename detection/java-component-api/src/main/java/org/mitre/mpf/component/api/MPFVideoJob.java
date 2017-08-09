@@ -37,7 +37,6 @@ public class MPFVideoJob extends MPFJob {
 
     private final int startFrame;
     private final int stopFrame;
-    private final boolean hasFeedForwardTrack;
     private MPFVideoTrack feedForwardTrack;
 
     /**
@@ -64,20 +63,10 @@ public class MPFVideoJob extends MPFJob {
      *  A video job may contain a feed-forward track from a previous stage
      *  in the job pipeline.
      *
-     * @return true if the job contains a valid feed-forward track; otherwise, false.
-     */
-    public boolean hasFeedForwardTrack() {
-        return hasFeedForwardTrack;
-    }
-
-    /**
-     *  A video job may contain a feed-forward track from a previous stage
-     *  in the job pipeline.
-     *
      * @return the feed-forward track
      */
     public MPFVideoTrack getFeedForwardTrack() {
-        return feedForwardTrack;
+        return feedForwardTrack;   // Could be null; be sure to check
     }
 
     /**
@@ -98,7 +87,7 @@ public class MPFVideoJob extends MPFJob {
         super(jobName, dataUri, jobProperties, mediaProperties);
         this.startFrame=startFrame;
         this.stopFrame=stopFrame;
-        this.hasFeedForwardTrack=false;
+        this.feedForwardTrack=null;
     }
 
     /**
@@ -125,7 +114,6 @@ public class MPFVideoJob extends MPFJob {
         super(jobName, dataUri, jobProperties, mediaProperties);
         this.startFrame=startFrame;
         this.stopFrame=stopFrame;
-        this.hasFeedForwardTrack=true;
         this.feedForwardTrack=track;
     }
 }

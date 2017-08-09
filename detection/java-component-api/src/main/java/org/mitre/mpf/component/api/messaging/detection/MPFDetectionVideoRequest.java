@@ -31,7 +31,6 @@ public class MPFDetectionVideoRequest {
 
     private int startFrame;
     private int stopFrame;
-    private final boolean hasFeedForwardTrack;
     private MPFVideoTrack feedForwardTrack;
 
     public int getStartFrame() {
@@ -50,30 +49,25 @@ public class MPFDetectionVideoRequest {
         this.stopFrame = stopFrame;
     }
 
-    public boolean hasFeedForwardTrack() {
-	return hasFeedForwardTrack;
-    }
-
     public MPFVideoTrack getFeedForwardTrack() {
-	return feedForwardTrack;
+        return feedForwardTrack;   // Could be null; be sure to check
     }
 
     // Constructor for a request that does not have a feed-forward track
     public MPFDetectionVideoRequest(int startFrame,
-				    int stopFrame) {
+                                    int stopFrame) {
         this.startFrame = startFrame;
         this.stopFrame = stopFrame;
-	this.hasFeedForwardTrack = false;
+        this.feedForwardTrack = null;
     }
 
     // Constructor for a request that has a feed-forward track
     public MPFDetectionVideoRequest(int startFrame,
-				    int stopFrame,
-				    MPFVideoTrack track) {
+                                    int stopFrame,
+                                    MPFVideoTrack track) {
         this.startFrame = startFrame;
         this.stopFrame = stopFrame;
-	this.hasFeedForwardTrack = true;
-	this.feedForwardTrack = track;
+        this.feedForwardTrack = track;
     }
 
 }

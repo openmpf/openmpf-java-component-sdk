@@ -37,18 +37,7 @@ public class MPFAudioJob extends MPFJob {
 
     private final int startTime;
     private final int stopTime;
-    private final boolean hasFeedForwardTrack;
     private MPFAudioTrack feedForwardTrack;
-
-    /**
-     *  An audio job may contain a feed-forward track from a previous stage
-     *  in the job pipeline.
-     *
-     * @return true if the job contains a valid feed-forward track; otherwise, false.
-     */
-    public boolean hasFeedForwardTrack() {
-        return hasFeedForwardTrack;
-    }
 
     /**
      *  An audio job may contain a feed-forward track from a previous stage
@@ -57,7 +46,7 @@ public class MPFAudioJob extends MPFJob {
      * @return the feed-forward track.
      */
     public MPFAudioTrack getFeedForwardTrack() {
-        return feedForwardTrack;
+        return feedForwardTrack;   // Could be null; be sure to check
     }
 
     /**
@@ -78,7 +67,7 @@ public class MPFAudioJob extends MPFJob {
         super(jobName, dataUri, jobProperties, mediaProperties);
         this.startTime=startTime;
         this.stopTime=stopTime;
-        this.hasFeedForwardTrack=false;
+        this.feedForwardTrack = null;
     }
 
     /**
@@ -106,7 +95,6 @@ public class MPFAudioJob extends MPFJob {
         super(jobName, dataUri, jobProperties, mediaProperties);
         this.startTime=startTime;
         this.stopTime=stopTime;
-        this.hasFeedForwardTrack=true;
         this.feedForwardTrack=track;
     }
 
