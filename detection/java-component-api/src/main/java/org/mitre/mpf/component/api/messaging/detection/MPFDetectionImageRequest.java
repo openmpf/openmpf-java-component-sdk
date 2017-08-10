@@ -25,10 +25,22 @@
  ******************************************************************************/
 
 package org.mitre.mpf.component.api.messaging.detection;
+import org.mitre.mpf.component.api.detection.MPFImageLocation;
+
 
 public class MPFDetectionImageRequest {
+    private MPFImageLocation feedForwardLocation;
 
-	public MPFDetectionImageRequest() {
+    public MPFImageLocation getFeedForwardLocation() {
+        return feedForwardLocation;   // Could be null; be sure to check
+    }
+
+    public MPFDetectionImageRequest() {
+        this.feedForwardLocation = null;
+    }
+
+    public MPFDetectionImageRequest(MPFImageLocation location) {
+        this.feedForwardLocation = location;
     }
 
 }
