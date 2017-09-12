@@ -27,6 +27,7 @@
 package org.mitre.mpf.component.api;
 
 import java.util.Map;
+import org.mitre.mpf.component.api.detection.MPFAudioTrack;
 
 /**
  * A job description for an audio job.  The component will act on a single audio file, with a start and stop time to
@@ -36,9 +37,20 @@ public class MPFAudioJob extends MPFJob {
 
     private final int startTime;
     private final int stopTime;
+    private MPFAudioTrack feedForwardTrack;
 
     /**
-     * Create a new job object for an audio job.
+     *  An audio job may contain a feed-forward track from a previous stage
+     *  in the job pipeline.
+     *
+     * @return the feed-forward track.
+     */
+    public MPFAudioTrack getFeedForwardTrack() {
+        return feedForwardTrack;   // Could be null; be sure to check
+    }
+
+    /**
+     * Create a new job object for an audio job that does not have a feed-forward track.
      *
      * @param jobName   The name of the job being run.  Useful for logging purposes
      * @param dataUri   The URI for the piece of media being processed.
@@ -55,6 +67,35 @@ public class MPFAudioJob extends MPFJob {
         super(jobName, dataUri, jobProperties, mediaProperties);
         this.startTime=startTime;
         this.stopTime=stopTime;
+        this.feedForwardTrack = null;
+    }
+
+    /**
+     * Create a new job object for an audio job that has a feed-forward track.
+     *
+     * @param jobName   The name of the job being run.  Useful for logging purposes
+     * @param dataUri   The URI for the piece of media being processed.
+     * @param jobProperties  Values for any properties the component requires.
+     * @param mediaProperties   Properties about the media being processed.  Audio files have a "DURATION" property,
+     *                          represented in milliseconds.
+     * @param startTime The beginning of the relevant range within the file. Nothing before the start time will be
+     *                  detected.
+     * @param stopTime  The end of the relevant range within the file. Nothing after the stop time  will be detected.
+     *                    stopFrame will not be processed by the component.
+     * @param track       An instance of an MPFAudioTrack.
+     */
+
+    public MPFAudioJob(String jobName,
+                       String dataUri,
+                       final Map<String, String> jobProperties,
+                       final Map <String, String> mediaProperties,
+                       int startTime,
+                       int stopTime,
+                       MPFAudioTrack track) {
+        super(jobName, dataUri, jobProperties, mediaProperties);
+        this.startTime=startTime;
+        this.stopTime=stopTime;
+        this.feedForwardTrack=track;
     }
 
     /**
