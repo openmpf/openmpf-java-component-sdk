@@ -1,9 +1,9 @@
 {
   "componentName" : "JavaHelloWorldExample",
-  "componentVersion" : "0.10.0",
-  "middlewareVersion" :  "0.10.0",
+  "componentVersion" : "1.0.0",
+  "middlewareVersion" :  "1.0.0",
   "sourceLanguage" : "java",
-  "pathName" : "mpf-helloworld-java-example-component-0.10.0.jar",
+  "pathName" : "mpf-helloworld-java-example-component-1.0.0.jar",
   "launchArgs" : [],
   "environmentVariables" : [],
   "algorithm" : {
