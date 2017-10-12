@@ -10,6 +10,7 @@
     "name": "JavaHelloWorld",
     "description": "A simple example detection component.",
     "actionType": "DETECTION",
+    "supportsBatchProcessing": true,
     "requiresCollection": {
       "states": []
     },
