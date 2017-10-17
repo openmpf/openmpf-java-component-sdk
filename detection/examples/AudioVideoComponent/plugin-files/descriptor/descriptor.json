@@ -10,6 +10,7 @@
     "name": "JavaAudioVideo",
     "description": "An example detection component for audio processing of audio and video media.",
     "actionType": "DETECTION",
+    "supportsBatchProcessing": true,
     "requiresCollection": {
       "states": []
     },

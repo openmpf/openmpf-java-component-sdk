@@ -27,6 +27,7 @@
 package org.mitre.mpf.component.api;
 
 import java.util.Map;
+import org.mitre.mpf.component.api.detection.MPFVideoTrack;
 
 /**
  * A job description for a video job.  The component will act on a single video file, with a start and stop frame to
@@ -36,6 +37,7 @@ public class MPFVideoJob extends MPFJob {
 
     private final int startFrame;
     private final int stopFrame;
+    private MPFVideoTrack feedForwardTrack;
 
     /**
      *  The first frame of the relevant range within the video. Frames before the startFrame will not be processed
@@ -58,7 +60,17 @@ public class MPFVideoJob extends MPFJob {
     }
 
     /**
-     * Create a new job object for a video job.
+     *  A video job may contain a feed-forward track from a previous stage
+     *  in the job pipeline.
+     *
+     * @return the feed-forward track
+     */
+    public MPFVideoTrack getFeedForwardTrack() {
+        return feedForwardTrack;   // Could be null; be sure to check
+    }
+
+    /**
+     * Create a new job object for a video job that has no feed-forward track.
      *
      * @param jobName     The name of the job being run.  Useful for logging purposes
      * @param dataUri     The URI for the piece of media being processed.
@@ -75,5 +87,33 @@ public class MPFVideoJob extends MPFJob {
         super(jobName, dataUri, jobProperties, mediaProperties);
         this.startFrame=startFrame;
         this.stopFrame=stopFrame;
+        this.feedForwardTrack=null;
+    }
+
+    /**
+     * Create a new job object for a video job that has a feed-forward track.
+     *
+     * @param jobName     The name of the job being run.  Useful for logging purposes
+     * @param dataUri     The URI for the piece of media being processed.
+     * @param jobProperties  Values for any properties the component requires.
+     * @param mediaProperties   Properties about the media being processed.  Video files have
+     *                    "DURATION" and "FPS" (frames per second) properties.
+     * @param startFrame  The first frame of the relevant range within the video. Frames before
+     *                    the startFrame will not be processed by the component.
+     * @param stopFrame   The last frame of the relevant range within the video. Frames after the
+     *                    stopFrame will not be processed by the component.
+     * @param track       An instance of an MPFVideoTrack.
+     */
+    public MPFVideoJob(String jobName,
+                       String dataUri,
+                       final Map<String, String> jobProperties,
+                       final Map <String, String> mediaProperties,
+                       int startFrame,
+                       int stopFrame,
+                       MPFVideoTrack track) {
+        super(jobName, dataUri, jobProperties, mediaProperties);
+        this.startFrame=startFrame;
+        this.stopFrame=stopFrame;
+        this.feedForwardTrack=track;
     }
 }

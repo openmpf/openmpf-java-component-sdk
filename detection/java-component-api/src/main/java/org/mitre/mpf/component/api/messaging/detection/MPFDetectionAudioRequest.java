@@ -25,11 +25,13 @@
  ******************************************************************************/
 
 package org.mitre.mpf.component.api.messaging.detection;
+import org.mitre.mpf.component.api.detection.MPFAudioTrack;
 
 public class MPFDetectionAudioRequest {
 
     private int startTime;
     private int stopTime;
+    private MPFAudioTrack feedForwardTrack;
 
     public int getStartTime() {
         return startTime;
@@ -47,12 +49,25 @@ public class MPFDetectionAudioRequest {
         this.stopTime = stopTime;
     }
 
-	public MPFDetectionAudioRequest(
-        int startTime,
-        int stopTime
-    ) {
+    public MPFAudioTrack getFeedForwardTrack() {
+        return feedForwardTrack;   // Could be null; be sure to check
+    }
+
+    // Constructor for a request that does not have a feed-forward track
+    public MPFDetectionAudioRequest(int startTime,
+                                    int stopTime) {
         this.startTime = startTime;
         this.stopTime = stopTime;
+        this.feedForwardTrack = null;
+    }
+
+    // Constructor for a request that has a feed-forward track
+    public MPFDetectionAudioRequest(int startTime,
+                                    int stopTime,
+                                    MPFAudioTrack track) {
+        this.startTime = startTime;
+        this.stopTime = stopTime;
+        this.feedForwardTrack = track;
     }
 
 }
