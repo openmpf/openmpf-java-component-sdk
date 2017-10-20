@@ -5,7 +5,7 @@
     <parent>
         <artifactId>openmpf-java-component-sdk</artifactId>
         <groupId>org.mitre.mpf</groupId>
-        <version>0.10.0</version>
+        <version>1.0.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -20,7 +20,7 @@
         <dependency>
             <groupId>org.mitre.mpf</groupId>
             <artifactId>mpf-java-component-api</artifactId>
-            <version>0.10.0</version>
+            <version>1.0.0</version>
         </dependency>
 
         <!-- Additional libraries may be brought in as needed.  They will be bundled into the
