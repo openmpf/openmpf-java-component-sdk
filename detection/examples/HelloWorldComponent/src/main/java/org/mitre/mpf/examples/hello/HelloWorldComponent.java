@@ -26,11 +26,7 @@
 
 package org.mitre.mpf.examples.hello;
 
-import org.mitre.mpf.component.api.MPFAudioJob;
-import org.mitre.mpf.component.api.MPFImageJob;
-import org.mitre.mpf.component.api.MPFVideoJob;
 import org.mitre.mpf.component.api.detection.*;
-import org.mitre.mpf.component.api.exceptions.MPFComponentDetectionError;
 
 import java.util.*;
 
@@ -71,9 +67,23 @@ public class HelloWorldComponent extends MPFDetectionComponentBase {
         // about the image in a particular frame. Here we add
         // "METADATA", which might be used, for example, to return the
         // pose of the object detected in the frame.
-
         Map<String, String> imageDetectionProperties = new HashMap<String, String>();
         imageDetectionProperties.put("METADATA", "extra image location info");
+
+        // Do something with the feed forward track if it exists
+        MPFVideoTrack feedForwardTrack = mpfVideoJob.getFeedForwardTrack();
+        if (feedForwardTrack != null) {
+            Integer locationKey = (Integer) feedForwardTrack.getFrameLocations().keySet().toArray()[0];
+            if (locationKey != null) {
+                MPFImageLocation feedForwardLocation = feedForwardTrack.getFrameLocations().get(locationKey);
+                int feedForwardCount = 1;
+                if (feedForwardLocation.getDetectionProperties().containsKey("FEED_FORWARD_COUNT")){
+                    feedForwardCount += Integer.parseInt(feedForwardLocation.getDetectionProperties().get("FEED_FORWARD_COUNT"));
+                }
+                imageDetectionProperties.put("FEED_FORWARD_COUNT", Integer.toString(feedForwardCount));
+            }
+        }
+
         MPFImageLocation imageLocation = new MPFImageLocation(0, 0, 100, 100, imageConfidence, imageDetectionProperties);
 
         Map<Integer, MPFImageLocation> frameLocations = new HashMap<Integer, MPFImageLocation>();
@@ -87,6 +97,15 @@ public class HelloWorldComponent extends MPFDetectionComponentBase {
         // example, to return the type of the object that is tracked.
         Map<String, String> detectionProperties = new HashMap<String, String>();
         detectionProperties.put("METADATA", "extra video track info");
+
+        // Do something with the feed forward track if it exists
+        if (feedForwardTrack != null) {
+            int feedForwardCount = 1;
+            if (feedForwardTrack.getDetectionProperties().containsKey("FEED_FORWARD_COUNT")) {
+                feedForwardCount += Integer.parseInt(feedForwardTrack.getDetectionProperties().get("FEED_FORWARD_COUNT"));
+            }
+            detectionProperties.put("FEED_FORWARD_COUNT", Integer.toString(feedForwardCount));
+        }
 
         // Construct the track from the assembled parameter objects.
         // ---------------------------------------------------------
@@ -137,6 +156,16 @@ public class HelloWorldComponent extends MPFDetectionComponentBase {
         Map<String, String> audioDetectionProperties = new HashMap<String, String>();
         audioDetectionProperties.put("METADATA", "extra audio track info");
 
+        // Do something with the feed forward track if it exists
+        MPFAudioTrack feedForwardTrack = mpfAudioJob.getFeedForwardTrack();
+        if (feedForwardTrack != null) {
+            int feedForwardCount = 1;
+            if (feedForwardTrack.getDetectionProperties().containsKey("FEED_FORWARD_COUNT")) {
+                feedForwardCount += Integer.parseInt(feedForwardTrack.getDetectionProperties().get("FEED_FORWARD_COUNT"));
+            }
+            audioDetectionProperties.put("FEED_FORWARD_COUNT", Integer.toString(feedForwardCount));
+        }
+
         MPFAudioTrack audioTrack = new MPFAudioTrack(mpfAudioJob.getStartTime(), mpfAudioJob.getStartTime() + 1, confidence, audioDetectionProperties);
 
         List<MPFAudioTrack> tracks = new LinkedList<MPFAudioTrack>();
@@ -173,6 +202,16 @@ public class HelloWorldComponent extends MPFDetectionComponentBase {
         Map<String, String> imageDetectionProperties = new HashMap<String, String>();
         imageDetectionProperties.put("METADATA", "extra image location info");
 
+        // Do something with the feed forward location if it exists
+        MPFImageLocation feedForwardLocation = mpfImageJob.getFeedForwardLocation();
+        if (feedForwardLocation != null) {
+            int feedForwardCount = 1;
+            if (feedForwardLocation.getDetectionProperties().containsKey("FEED_FORWARD_COUNT")) {
+                feedForwardCount += Integer.parseInt(feedForwardLocation.getDetectionProperties().get("FEED_FORWARD_COUNT"));
+            }
+            imageDetectionProperties.put("FEED_FORWARD_COUNT", Integer.toString(feedForwardCount));
+        }
+
         MPFImageLocation imageLocation = new MPFImageLocation(0, 0, 100, 100, confidence, imageDetectionProperties);
 
         List<MPFImageLocation> locations = new LinkedList<MPFImageLocation>();
@@ -186,12 +225,59 @@ public class HelloWorldComponent extends MPFDetectionComponentBase {
         return locations;
     }
 
+    // Handles the case where the media is a generic type.
+    public List<MPFGenericTrack> getDetections(MPFGenericJob mpfGenericJob) throws MPFComponentDetectionError {
+
+        // The MPFGenericJob object contains all of the details needed to
+        // process a generic file.
+        System.out.println(
+                String.format("[%s] Processing %s.",
+                        mpfGenericJob.getJobName(),
+                        mpfGenericJob.getDataUri()));
+
+        // =========================
+        // Detection logic goes here
+        // =========================
+
+        float confidence = 0.80f;
+
+        // The MPFGenericTrack object contains a Map of properties that
+        // can be used to return component-specific information about the
+        // track. Here we add "METADATA", which might be used, for
+        // example, to return information about the generic track.
+        Map<String, String> genericDetectionProperties = new HashMap<String, String>();
+        genericDetectionProperties.put("METADATA", "extra generic track info");
+
+        // Do something with the feed forward track if it exists
+        MPFGenericTrack feedForwardTrack = mpfGenericJob.getFeedForwardTrack();
+        if (feedForwardTrack != null) {
+            int feedForwardCount = 1;
+            if (feedForwardTrack.getDetectionProperties().containsKey("FEED_FORWARD_COUNT")) {
+                feedForwardCount += Integer.parseInt(feedForwardTrack.getDetectionProperties().get("FEED_FORWARD_COUNT"));
+            }
+            genericDetectionProperties.put("FEED_FORWARD_COUNT", Integer.toString(feedForwardCount));
+        }
+
+        MPFGenericTrack genericTrack = new MPFGenericTrack(confidence, genericDetectionProperties);
+
+        List<MPFGenericTrack> tracks = new LinkedList<MPFGenericTrack>();
+        tracks.add(genericTrack);
+
+        System.out.println(
+                String.format("[%s] Processing complete. Generated %d dummy generic tracks.",
+                        mpfGenericJob.getJobName(),
+                        tracks.size()));
+
+        return tracks;
+    }
+
     public boolean supports(MPFDataType mpfDataType) {
-        // This HelloWorld example component supports all three data types.
+        // This HelloWorld example component supports all data types.
         if (mpfDataType != null &&
                 (MPFDataType.AUDIO.equals(mpfDataType)
                  || MPFDataType.VIDEO.equals(mpfDataType)
-                 || MPFDataType.IMAGE.equals(mpfDataType))) {
+                 || MPFDataType.IMAGE.equals(mpfDataType)
+                 || MPFDataType.UNKNOWN.equals(mpfDataType))) {
             return true;
         }
         return false;

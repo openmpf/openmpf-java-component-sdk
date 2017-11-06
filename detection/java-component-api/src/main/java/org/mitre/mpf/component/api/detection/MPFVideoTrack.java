@@ -63,7 +63,7 @@ public class MPFVideoTrack {
      *  As an example, if the job only looks at every fifth frame, and a detection is found at frames 5, 10, 15, and 20,
      *  but not 25, the end of the track should be 24, even though there is no evidence that the detection exists from
      *  frames 21-24.  If no end to the detection is found, the stop frame should be the stop frame for the
-     *  {@link org.mitre.mpf.component.api.MPFVideoJob MPFVideoJob}.
+     *  {@link MPFVideoJob MPFVideoJob}.
      */
     public int getStopFrame() {
         return stopFrame;

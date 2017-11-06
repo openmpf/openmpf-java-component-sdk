@@ -29,13 +29,7 @@ package org.mitre.mpf.examples.hello;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.mitre.mpf.component.api.MPFAudioJob;
-import org.mitre.mpf.component.api.MPFImageJob;
-import org.mitre.mpf.component.api.MPFVideoJob;
-import org.mitre.mpf.component.api.detection.MPFAudioTrack;
-import org.mitre.mpf.component.api.detection.MPFImageLocation;
-import org.mitre.mpf.component.api.detection.MPFVideoTrack;
-import org.mitre.mpf.component.api.exceptions.MPFComponentDetectionError;
+import org.mitre.mpf.component.api.detection.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -98,7 +92,7 @@ public class HelloWorldComponentTest {
                 assertEquals("metadata does not match.", "extra image location info", location.getDetectionProperties().get("METADATA"));
             }
         } catch (MPFComponentDetectionError e) {
-            System.out.println(String.format("An error occurred of type %s", e.getDetectionError().name()));
+            System.err.println(String.format("An error occurred of type %s", e.getDetectionError().name()));
             fail(String.format("An error has occurred of type %s.", e.getDetectionError().name()));
         }
     }
@@ -119,6 +113,7 @@ public class HelloWorldComponentTest {
 
         try {
             List<MPFVideoTrack> tracks = helloWorldComponent.getDetections(job);
+
             assertEquals("Number of tracks is not as expected.", 1, tracks.size());
             System.out.println(String.format("Number of video tracks = %d.", tracks.size()));
 
@@ -145,7 +140,7 @@ public class HelloWorldComponentTest {
                 }
             }
         } catch (MPFComponentDetectionError e) {
-            System.out.println(String.format("An error occurred of type ", e.getDetectionError().name()));
+            System.err.println(String.format("An error occurred of type ", e.getDetectionError().name()));
             fail(String.format("An error occurred of type ", e.getDetectionError().name()));
         }
     }
@@ -180,7 +175,34 @@ public class HelloWorldComponentTest {
                 assertEquals("metadata does not match.", "extra audio track info", track.getDetectionProperties().get("METADATA"));
             }
         } catch (MPFComponentDetectionError e) {
-            System.out.println(String.format("An error occurred of type ", e.getDetectionError().name()));
+            System.err.println(String.format("An error occurred of type ", e.getDetectionError().name()));
+            fail(String.format("An error occurred of type ", e.getDetectionError().name()));
+        }
+    }
+
+    @Test
+    public void testGetDetectionsGeneric() throws Exception {
+        String uri = "RandomGenericFile";
+
+        Map<String, String> jobProperties = new HashMap<String, String>();
+        Map<String, String> mediaProperties = new HashMap<String, String>();
+
+        MPFGenericJob genericJob = new MPFGenericJob("TestGenericJob", uri, jobProperties, mediaProperties);
+
+        try {
+            List<MPFGenericTrack> tracks = helloWorldComponent.getDetections(genericJob);
+            System.out.println(String.format("Number of generic tracks = %d.", tracks.size()));
+
+            for (int i = 0; i < tracks.size(); i++) {
+                MPFGenericTrack track = tracks.get(i);
+                System.out.println(String.format("Generic track number %d", i));
+                System.out.println(String.format("  confidence = %f", track.getConfidence()));
+                System.out.println(String.format("  metadata = %s", track.getDetectionProperties().get("METADATA")));
+                assertEquals("confidence does not match.", 0.8f, track.getConfidence(), 0.01f);
+                assertEquals("metadata does not match.", "extra generic track info", track.getDetectionProperties().get("METADATA"));
+            }
+        } catch (MPFComponentDetectionError e) {
+            System.err.println(String.format("An error occurred of type ", e.getDetectionError().name()));
             fail(String.format("An error occurred of type ", e.getDetectionError().name()));
         }
     }

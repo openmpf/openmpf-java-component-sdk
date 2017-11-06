@@ -24,13 +24,9 @@
  * limitations under the License.                                             *
  ******************************************************************************/
 
-package org.mitre.mpf.component.api.adapters;
+package org.mitre.mpf.component.api.detection.adapters;
 
-import org.mitre.mpf.component.api.MPFAudioJob;
-import org.mitre.mpf.component.api.MPFImageJob;
-import org.mitre.mpf.component.api.MPFVideoJob;
 import org.mitre.mpf.component.api.detection.*;
-import org.mitre.mpf.component.api.exceptions.MPFComponentDetectionError;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -147,6 +143,10 @@ public abstract class MPFAudioAndVideoDetectionComponentAdapter extends MPFDetec
 
     public List<MPFImageLocation> getDetections(MPFImageJob job) throws MPFComponentDetectionError {
         throw new MPFComponentDetectionError(MPFDetectionError.MPF_UNSUPPORTED_DATA_TYPE, "Image detection not supported.");
+    }
+
+    public List<MPFGenericTrack> getDetections(MPFGenericJob job) throws MPFComponentDetectionError {
+        throw new MPFComponentDetectionError(MPFDetectionError.MPF_UNSUPPORTED_DATA_TYPE, "Generic detection not supported.");
     }
 
     public boolean supports(MPFDataType dataType) {

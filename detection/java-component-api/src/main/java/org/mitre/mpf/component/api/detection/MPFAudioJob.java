@@ -24,10 +24,9 @@
  * limitations under the License.                                             *
  ******************************************************************************/
 
-package org.mitre.mpf.component.api;
+package org.mitre.mpf.component.api.detection;
 
 import java.util.Map;
-import org.mitre.mpf.component.api.detection.MPFAudioTrack;
 
 /**
  * A job description for an audio job.  The component will act on a single audio file, with a start and stop time to

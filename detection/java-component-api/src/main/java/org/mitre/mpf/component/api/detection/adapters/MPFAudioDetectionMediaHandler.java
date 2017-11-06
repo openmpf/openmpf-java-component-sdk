@@ -24,7 +24,7 @@
  * limitations under the License.                                             *
  ******************************************************************************/
 
-package org.mitre.mpf.component.api.adapters;
+package org.mitre.mpf.component.api.detection.adapters;
 
 import org.mitre.mpf.audioVideo.util.MPFAudioAttributes;
 import org.mitre.mpf.audioVideo.util.MPFEncoder;
