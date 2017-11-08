@@ -24,10 +24,9 @@
  * limitations under the License.                                             *
  ******************************************************************************/
 
-package org.mitre.mpf.component.api;
+package org.mitre.mpf.component.api.detection;
 
 import java.util.Map;
-import org.mitre.mpf.component.api.detection.MPFVideoTrack;
 
 /**
  * A job description for a video job.  The component will act on a single video file, with a start and stop frame to

@@ -24,7 +24,7 @@
  * limitations under the License.                                             *
  ******************************************************************************/
 
-package org.mitre.mpf.component.api.exceptions;
+package org.mitre.mpf.component.api.detection;
 
 import org.mitre.mpf.component.api.detection.MPFDetectionError;
 

@@ -27,12 +27,8 @@
 package org.mitre.mpf.examples.audiovideo;
 
 import com.google.common.math.IntMath;
-import org.mitre.mpf.component.api.MPFAudioJob;
-import org.mitre.mpf.component.api.MPFImageJob;
-import org.mitre.mpf.component.api.MPFVideoJob;
-import org.mitre.mpf.component.api.adapters.MPFAudioAndVideoDetectionComponentAdapter;
+import org.mitre.mpf.component.api.detection.adapters.MPFAudioAndVideoDetectionComponentAdapter;
 import org.mitre.mpf.component.api.detection.*;
-import org.mitre.mpf.component.api.exceptions.MPFComponentDetectionError;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

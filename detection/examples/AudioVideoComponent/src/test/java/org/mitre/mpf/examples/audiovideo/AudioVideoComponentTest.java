@@ -30,13 +30,7 @@ import junit.framework.TestCase;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.mitre.mpf.component.api.MPFAudioJob;
-import org.mitre.mpf.component.api.MPFImageJob;
-import org.mitre.mpf.component.api.MPFVideoJob;
-import org.mitre.mpf.component.api.detection.MPFAudioTrack;
-import org.mitre.mpf.component.api.detection.MPFImageLocation;
-import org.mitre.mpf.component.api.detection.MPFVideoTrack;
-import org.mitre.mpf.component.api.exceptions.MPFComponentDetectionError;
+import org.mitre.mpf.component.api.detection.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

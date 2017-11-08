@@ -24,16 +24,11 @@
  * limitations under the License.                                             *
  ******************************************************************************/
 
-package org.mitre.mpf.component.api.adapters;
+package org.mitre.mpf.component.api.detection.adapters;
 
 import junit.framework.TestCase;
 import org.junit.Test;
-import org.mitre.mpf.component.api.MPFAudioJob;
-import org.mitre.mpf.component.api.MPFVideoJob;
-import org.mitre.mpf.component.api.detection.MPFAudioTrack;
-import org.mitre.mpf.component.api.detection.MPFDetectionError;
-import org.mitre.mpf.component.api.detection.MPFVideoTrack;
-import org.mitre.mpf.component.api.exceptions.MPFComponentDetectionError;
+import org.mitre.mpf.component.api.detection.*;
 
 import java.util.Collections;
 import java.util.HashMap;

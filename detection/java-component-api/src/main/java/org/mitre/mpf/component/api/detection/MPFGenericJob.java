@@ -24,50 +24,59 @@
  * limitations under the License.                                             *
  ******************************************************************************/
 
-package org.mitre.mpf.component.api.messaging.detection;
-import org.mitre.mpf.component.api.detection.MPFAudioTrack;
+package org.mitre.mpf.component.api.detection;
 
-public class MPFDetectionAudioRequest {
+import java.util.Map;
 
-    private int startTime;
-    private int stopTime;
-    private MPFAudioTrack feedForwardTrack;
+/**
+ * A job description for a generic job.  The component will act on a single generic file.
+ */
+public class MPFGenericJob extends MPFJob {
 
-    public int getStartTime() {
-        return startTime;
-    }
+    private MPFGenericTrack feedForwardTrack;
 
-    public void setStartTime(int startTime) {
-        this.startTime = startTime;
-    }
-
-    public int getStopTime() {
-        return stopTime;
-    }
-
-    public void setStopTime(int stopTime) {
-        this.stopTime = stopTime;
-    }
-
-    public MPFAudioTrack getFeedForwardTrack() {
+    /**
+     *  A generic job may contain a feed-forward track from a previous stage
+     *  in the job pipeline.
+     *
+     * @return the feed-forward track.
+     */
+    public MPFGenericTrack getFeedForwardTrack() {
         return feedForwardTrack;   // Could be null; be sure to check
     }
 
-    // Constructor for a request that does not have a feed-forward track
-    public MPFDetectionAudioRequest(int startTime,
-                                    int stopTime) {
-        this.startTime = startTime;
-        this.stopTime = stopTime;
+    /**
+     * Create a new job object for a generic job that does not have a feed-forward track.
+     *
+     * @param jobName   The name of the job being run.  Useful for logging purposes
+     * @param dataUri   The URI for the piece of media being processed.
+     * @param jobProperties  Values for any properties the component requires.
+     * @param mediaProperties   Properties about the media being processed.
+     */
+
+    public MPFGenericJob(String jobName, String dataUri, final Map<String, String> jobProperties,
+                         final Map <String, String> mediaProperties) {
+        super(jobName, dataUri, jobProperties, mediaProperties);
         this.feedForwardTrack = null;
     }
 
-    // Constructor for a request that has a feed-forward track
-    public MPFDetectionAudioRequest(int startTime,
-                                    int stopTime,
-                                    MPFAudioTrack track) {
-        this.startTime = startTime;
-        this.stopTime = stopTime;
-        this.feedForwardTrack = track;
-    }
+    /**
+     * Create a new job object for a generic job that has a feed-forward track.
+     *
+     * @param jobName   The name of the job being run.  Useful for logging purposes
+     * @param dataUri   The URI for the piece of media being processed.
+     * @param jobProperties  Values for any properties the component requires.
+     * @param mediaProperties   Properties about the media being processed.
+     * @param track       An instance of an MPFAudioTrack.
+     */
 
-}
+    public MPFGenericJob(String jobName,
+                         String dataUri,
+                         final Map<String, String> jobProperties,
+                         final Map <String, String> mediaProperties,
+                         MPFGenericTrack track) {
+        super(jobName, dataUri, jobProperties, mediaProperties);
+        this.feedForwardTrack=track;
+    }
+ }
+
