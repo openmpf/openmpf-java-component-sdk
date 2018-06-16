@@ -57,11 +57,11 @@ Using this API, detection components can be built to provide:
 
 ### Using the Component SDK
 
-Please read the Java Component API documentation to get started: [https://openmpf.github.io/docs/site/Java-Component-API/](https://openmpf.github.io/docs/site/Java-Component-API/)
+Please read the [Java Batch Component API documentation](https://openmpf.github.io/docs/site/Java-Batch-Component-API) to get started.
 
 ## Project Website
 
-For more information about OpenMPF, including documentation, guides, and other material, visit our [website](https://openmpf.github.io/)
+For more information about OpenMPF, including documentation, guides, and other material, visit our [website](https://openmpf.github.io/).
 
 ## Project Workboard
 
