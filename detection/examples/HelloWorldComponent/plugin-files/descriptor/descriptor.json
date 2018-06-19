@@ -1,11 +1,11 @@
 {
-  "componentName" : "JavaHelloWorldExample",
-  "componentVersion" : "2.0.0",
-  "middlewareVersion" : "2.0.0",
-  "sourceLanguage" : "java",
-  "batchLibrary" : "mpf-helloworld-java-example-component-2.0.0.jar",
-  "environmentVariables" : [],
-  "algorithm" : {
+  "componentName": "JavaHelloWorldExample",
+  "componentVersion": "2.1.0",
+  "middlewareVersion": "2.1.0",
+  "sourceLanguage": "java",
+  "batchLibrary": "mpf-helloworld-java-example-component-2.1.0.jar",
+  "environmentVariables": [],
+  "algorithm": {
     "name": "JavaHelloWorld",
     "description": "A simple example detection component.",
     "actionType": "DETECTION",
