@@ -130,7 +130,7 @@ public abstract class MPFAudioAndVideoDetectionComponentAdapter extends MPFDetec
             MPFVideoTrack videoTrack = new MPFVideoTrack(trackStartFrame, trackStopFrame,
                     new HashMap<Integer, MPFImageLocation>(), audioTrack.getConfidence(), audioTrack.getDetectionProperties());
 
-            videoTrack.getFrameLocations().put(trackStartFrame, new MPFImageLocation(0, 0, 0, 0, 1, audioTrack.getDetectionProperties()));
+            videoTrack.getFrameLocations().put(trackStartFrame, new MPFImageLocation(0, 0, 0, 0, audioTrack.getConfidence(), audioTrack.getDetectionProperties()));
 
             tracks.add(videoTrack);
             LOG.info("Added video track: startFrame {}, stopFrame {}, location count {}", trackStartFrame, trackStopFrame, videoTrack.getFrameLocations().size());
