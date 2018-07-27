@@ -120,7 +120,7 @@ public class AudioVideoComponentTest {
                     assertEquals("y left upper does not match.", 0, location.getYLeftUpper());
                     assertEquals("width does not match.", 0, location.getWidth());
                     assertEquals("height does not match.", 0, location.getHeight());
-                    assertEquals("confidence does not match.", 1.0f, location.getConfidence(), 0.05f);
+                    assertEquals("confidence does not match.", 0.8f, location.getConfidence(), 0.05f);
                     assertEquals("metadata does not match.", "extra audio track info", location.getDetectionProperties().get("METADATA"));
                 }
             }
