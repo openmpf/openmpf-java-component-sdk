@@ -27,6 +27,7 @@
 package org.mitre.mpf.component.api.detection.util;
 
 import java.util.Map;
+import java.util.regex.Pattern;
 
 public class MPFEnvironmentVariablePathExpander {
 
@@ -40,7 +41,9 @@ public class MPFEnvironmentVariablePathExpander {
         for (Map.Entry<String, String> entry : sysEnv.entrySet()) {
             String key = entry.getKey();
             String value = entry.getValue();
-            path = path.replaceAll("\\$" + key, value);
+            path = path.replaceAll("\\$" + Pattern.quote(key)), value);
+            path = path.replaceAll("\\${" + Pattern.quote(key) + "}", value);
+
         }
 
         return path;
