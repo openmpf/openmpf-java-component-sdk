@@ -42,7 +42,7 @@ public class MPFEnvironmentVariablePathExpander {
             String key = entry.getKey();
             String value = entry.getValue();
             path = path.replaceAll("\\$" + Pattern.quote(key), value);
-            path = path.replaceAll("\\${" + Pattern.quote(key) + "}", value);
+            path = path.replaceAll("\\$\\{" + Pattern.quote(key) + "\\}", value);
 
         }
 
