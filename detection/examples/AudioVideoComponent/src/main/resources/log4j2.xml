@@ -24,30 +24,45 @@
   ~ See the License for the specific language governing permissions and       ~
   ~ limitations under the License.                                            ~
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<Configuration status="WARN"> <!-- status="WARN" is the logging level for configuration issues in this file. -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+    <Properties>
+        <Property name="audioVideoJavaExampleDetectionLogFile">
+            ${env:MPF_LOG_PATH}/${env:THIS_MPF_NODE}/log/audiovideo-java-example-detection.log
+        </Property>
+        <Property name="layoutPattern">%date %level [%thread] %logger{36} - %msg%n</Property>
+    </Properties>
 
-    <parent>
-        <artifactId>openmpf-java-component-sdk</artifactId>
-        <groupId>org.mitre.mpf</groupId>
-        <version>4.0.0</version>
-        <relativePath>../../pom.xml</relativePath>
-    </parent>
+    <Appenders>
+        <Console name="STDOUT">
+            <PatternLayout pattern="${layoutPattern}"/>
+        </Console>
 
-    <name>OpenMPF Audio-Video Utils</name>
-    <artifactId>mpf-audio-video-utils</artifactId>
-    <packaging>jar</packaging>
+        <RollingFile name="AUDIOVIDEO-JAVA-EXAMPLE-DETECTION-FILE" fileName="${audioVideoJavaExampleDetectionLogFile}"
+                     filePattern="${audioVideoJavaExampleDetectionLogFile}.%date{yyyy-MM-dd}.%i">
+            <PatternLayout pattern="${layoutPattern}"/>
+            <Policies>
+                <!-- Causes a rollover once the date/time pattern specified in filePattern no longer applies to the
+                     active file. -->
+                <TimeBasedTriggeringPolicy />
+                <SizeBasedTriggeringPolicy size="50MB"/>
+            </Policies>
+        </RollingFile>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>1.7.25</version>
-        </dependency>
-    </dependencies>
+    </Appenders>
 
+    <Loggers>
+        <!-- To change the verbosity of MPF's own logging, change the level in the XML element below. -->
+        <Logger name="org.mitre" level="INFO" />
 
-</project>
+        <Root level="INFO">
+            <AppenderRef ref="STDOUT"/>
+            <AppenderRef ref="AUDIOVIDEO-JAVA-EXAMPLE-DETECTION-FILE"/>
+        </Root>
+
+        <Logger name="org.dstovall" level="WARN"/>
+        <Logger name="org.springframework.context.annotation" level="WARN"/>
+        <Logger name="org.springframework.beans.factory" level="WARN"/>
+        <Logger name="org.apache.xbean.spring" level="WARN"/>
+    </Loggers>
+</Configuration>
