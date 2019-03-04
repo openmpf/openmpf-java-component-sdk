@@ -27,9 +27,17 @@
 package org.mitre.mpf.examples.audiovideo;
 
 import com.google.common.math.IntMath;
+import org.mitre.mpf.component.api.detection.MPFAudioJob;
+import org.mitre.mpf.component.api.detection.MPFAudioTrack;
+import org.mitre.mpf.component.api.detection.MPFComponentDetectionError;
 import org.mitre.mpf.component.api.detection.adapters.MPFAudioAndVideoDetectionComponentAdapter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 // The AudioVideoComponent uses an adapter to provide a level of baseline behavior.
 // In this example, the MPFAudioAndVideoDetectionComponentAdapter allows for audio
