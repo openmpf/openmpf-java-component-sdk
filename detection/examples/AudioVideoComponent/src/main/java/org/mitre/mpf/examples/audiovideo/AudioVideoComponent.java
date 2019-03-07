@@ -27,12 +27,17 @@
 package org.mitre.mpf.examples.audiovideo;
 
 import com.google.common.math.IntMath;
+import org.mitre.mpf.component.api.detection.MPFAudioJob;
+import org.mitre.mpf.component.api.detection.MPFAudioTrack;
+import org.mitre.mpf.component.api.detection.MPFComponentDetectionError;
 import org.mitre.mpf.component.api.detection.adapters.MPFAudioAndVideoDetectionComponentAdapter;
-import org.mitre.mpf.component.api.detection.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 // The AudioVideoComponent uses an adapter to provide a level of baseline behavior.
 // In this example, the MPFAudioAndVideoDetectionComponentAdapter allows for audio
@@ -46,9 +51,9 @@ import java.util.*;
 // needs to implement is getDetections(MPFAudioJob mpfAudioJob)
 public class AudioVideoComponent extends MPFAudioAndVideoDetectionComponentAdapter {
 
-    // The OpenMPF uses logback for logging.  Each component may define its own log
+    // The OpenMPF uses log4j2 for logging.  Each component may define its own log
     // file, to which log messages can be delivered.
-    // See logback.xml for more information on log configuration.
+    // See log4j2.xml for more information on log configuration.
     private static final Logger log = LoggerFactory.getLogger(AudioVideoComponent.class);
 
     // Handles the case where the media is an audio type.
