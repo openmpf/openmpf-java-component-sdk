@@ -42,8 +42,8 @@
     </modules>
 
     <properties>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
         <rpm.maven.plugin.version>2.1.4</rpm.maven.plugin.version>
         <rpmReleasePrefix>0</rpmReleasePrefix>
         <gitBranch>unknown</gitBranch>
