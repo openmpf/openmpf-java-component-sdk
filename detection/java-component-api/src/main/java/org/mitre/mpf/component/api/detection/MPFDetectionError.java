@@ -55,5 +55,6 @@ public enum MPFDetectionError {
         MPF_MEMORY_ALLOCATION_FAILED,
         MPF_GPU_ERROR,
         MPF_NETWORK_ERROR,
+        MPF_COULD_NOT_OPEN_MEDIA,
         MPF_COULD_NOT_READ_MEDIA
 }
