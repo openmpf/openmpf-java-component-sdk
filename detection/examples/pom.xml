@@ -30,7 +30,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <version>6.1</version>
+    <version>6.2</version>
     <groupId>org.mitre.mpf</groupId>
     <artifactId>openmpf-java-component-examples</artifactId>
     <packaging>pom</packaging>
