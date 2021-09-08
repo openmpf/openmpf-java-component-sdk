@@ -1,9 +1,9 @@
 {
   "componentName": "JavaHelloWorldExample",
-  "componentVersion": "6.2",
-  "middlewareVersion": "6.2",
+  "componentVersion": "6.3",
+  "middlewareVersion": "6.3",
   "sourceLanguage": "java",
-  "batchLibrary": "mpf-helloworld-java-example-component-6.2.jar",
+  "batchLibrary": "mpf-helloworld-java-example-component-6.3.jar",
   "environmentVariables": [],
   "algorithm": {
     "name": "JavaHelloWorld",
