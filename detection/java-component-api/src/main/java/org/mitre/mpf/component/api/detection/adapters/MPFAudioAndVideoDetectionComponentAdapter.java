@@ -110,11 +110,36 @@ public abstract class MPFAudioAndVideoDetectionComponentAdapter extends MPFDetec
             throw new MPFComponentDetectionError(MPFDetectionError.MPF_INVALID_STOP_FRAME, "Stop frame <= start frame.");
         }
 
+        Integer frameCount;
+
+        try {
+            if (mediaProperties.get("FRAME_COUNT") == null) {
+                frameCount = -1;
+            } else {
+                frameCount = Integer.valueOf(mediaProperties.get("FRAME_COUNT"));
+            }
+        } catch (NumberFormatException ex) {
+            LOG.error("Could not obtain frame count.");
+            throw new MPFComponentDetectionError(MPFDetectionError.MPF_PROPERTY_IS_NOT_INT,
+                    "Could not obtain frame count");
+        }
+
+        float fpms =  fps/ 1000;
+
         // calculate start and stop times in milliseconds based on fps
-        int startTime = (int) (newStartFrame / fps * 1000);
-        int stopTime  = (int) (newStopFrame  / fps * 1000);
+        int startTime = (int) (newStartFrame / fpms);
+        int stopTime;
 
-
+        if (newStopFrame < frameCount - 1) {
+            stopTime = (int) (newStopFrame / fpms);
+        } else if (duration > 0) {
+            stopTime = (int) duration;
+        } else if (frameCount > 0) {
+            stopTime = (int) (frameCount / fpms);
+        } else {
+            stopTime = 0;
+        }
+        
         // get audio tracks
 
         List<MPFAudioTrack> audioTracks = getDetections(new MPFAudioJob(job.getJobName(), job.getDataUri(), job.getJobProperties(), mediaProperties, startTime, stopTime));
