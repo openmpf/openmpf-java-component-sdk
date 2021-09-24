@@ -89,12 +89,12 @@ public abstract class MPFAudioAndVideoDetectionComponentAdapter extends MPFDetec
         int stopFrame = job.getStopFrame();
 
         if (startFrame < 0) {
-            LOG.error("Start frame < 0.");
+            LOG.error("Start frame of {} is < 0.", startFrame);
             throw new MPFComponentDetectionError(MPFDetectionError.MPF_INVALID_START_FRAME, "Start frame < 0.");
         }
 
         if (stopFrame >= frameCount) {
-            LOG.error("Stop frame >= frame count.");
+            LOG.error("Stop frame of {} is <= frame count of {}.", stopFrame, frameCount);
             throw new MPFComponentDetectionError(MPFDetectionError.MPF_INVALID_STOP_FRAME, "Stop frame >= frame count.");
         }
 
