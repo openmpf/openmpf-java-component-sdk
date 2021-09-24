@@ -46,6 +46,19 @@ public abstract class MPFAudioAndVideoDetectionComponentAdapter extends MPFDetec
 
         List<MPFVideoTrack> tracks = new LinkedList<>();
         Map<String,String> mediaProperties = job.getMediaProperties();
+
+        Integer frameCount;
+        try {
+            if (mediaProperties.get("FRAME_COUNT") == null) {
+                LOG.error("Could not obtain video frame count.");
+                throw new MPFComponentDetectionError(MPFDetectionError.MPF_MISSING_PROPERTY, "Could not obtain video frame count.");
+            }
+            frameCount = Integer.valueOf(mediaProperties.get("FRAME_COUNT"));
+        } catch (NumberFormatException ex) {
+            LOG.error("Could not obtain video frame count.");
+            throw new MPFComponentDetectionError(MPFDetectionError.MPF_PROPERTY_IS_NOT_INT, "Could not obtain video frame count");
+        }
+
         Float fps;
         try {
             if (mediaProperties.get("FPS") == null) {
@@ -70,76 +83,38 @@ public abstract class MPFAudioAndVideoDetectionComponentAdapter extends MPFDetec
             throw new MPFComponentDetectionError(MPFDetectionError.MPF_PROPERTY_IS_NOT_INT, "Could not obtain duration.");
         }
 
-        // calculate the final frame
-        // int process_to_end = Integer.MAX_VALUE; // TODO: use actual stop frame / stop time
-        int finalFrame = (int) (fps* duration / 1000); // TODO: this needs to be tested
-
-
-        // TODO: Do away with the need to handle the startTime=0, stopTime=-1 convention (which means to process the entire file).
-        // There should not be any special semantics associated with the startTime and stopTime.
-
         // determine actual start and stop frames
 
         int startFrame = job.getStartFrame();
         int stopFrame = job.getStopFrame();
 
-        int newStartFrame = 0;
-        int newStopFrame = 0;
-
         if (startFrame < 0) {
-            // process the entire video
-            newStartFrame = 0;
-            newStopFrame = finalFrame;
-        }
-        else if (stopFrame < 0) {
-            if (startFrame < 0) {
-                LOG.error("Start frame and stop frame are both < 0.");
-                throw new MPFComponentDetectionError(MPFDetectionError.MPF_BAD_FRAME_SIZE, "Start frame and stop frame are both < 0.");
-            }
-            // process from the start frame to the end
-            newStartFrame = startFrame;
-            newStopFrame = finalFrame;
-        }
-        else { // process from start frame to stop frame
-            newStartFrame = startFrame;
-            newStopFrame = stopFrame;
+            LOG.error("Start frame < 0.");
+            throw new MPFComponentDetectionError(MPFDetectionError.MPF_INVALID_START_FRAME, "Start frame < 0.");
         }
 
-        if (newStopFrame <= newStartFrame) {
-            LOG.error("Stop frame <= start frame.");
-            throw new MPFComponentDetectionError(MPFDetectionError.MPF_INVALID_STOP_FRAME, "Stop frame <= start frame.");
+        if (stopFrame >= frameCount) {
+            LOG.error("Stop frame >= frame count.");
+            throw new MPFComponentDetectionError(MPFDetectionError.MPF_INVALID_STOP_FRAME, "Stop frame >= frame count.");
         }
 
-        Integer frameCount;
-
-        try {
-            if (mediaProperties.get("FRAME_COUNT") == null) {
-                frameCount = -1;
-            } else {
-                frameCount = Integer.valueOf(mediaProperties.get("FRAME_COUNT"));
-            }
-        } catch (NumberFormatException ex) {
-            LOG.error("Could not obtain frame count.");
-            throw new MPFComponentDetectionError(MPFDetectionError.MPF_PROPERTY_IS_NOT_INT,
-                    "Could not obtain frame count");
-        }
-
-        float fpms =  fps/ 1000;
-
-        // calculate start and stop times in milliseconds based on fps
-        int startTime = (int) (newStartFrame / fpms);
+        float fpms =  fps / 1000;
+        int startTime = (int) (startFrame / fpms);
         int stopTime;
 
-        if (newStopFrame < frameCount - 1) {
-            stopTime = (int) (newStopFrame / fpms);
+        // The WFM will pass a job stop frame equal to FRAME_COUNT-1 for the last video segment.
+        // We want to use the detected DURATION in such cases instead to ensure we process the entire audio track.
+        // Only use the job stop frame if it differs from FRAME_COUNT-1.
+        if (stopFrame < frameCount - 1) {
+            stopTime = (int) (stopFrame / fpms);
         } else if (duration > 0) {
-            stopTime = (int) duration;
+            stopTime = duration;
         } else if (frameCount > 0) {
             stopTime = (int) (frameCount / fpms);
         } else {
             stopTime = 0;
         }
-        
+
         // get audio tracks
 
         List<MPFAudioTrack> audioTracks = getDetections(new MPFAudioJob(job.getJobName(), job.getDataUri(), job.getJobProperties(), mediaProperties, startTime, stopTime));
@@ -148,12 +123,11 @@ public abstract class MPFAudioAndVideoDetectionComponentAdapter extends MPFDetec
         // convert audio tracks to video tracks
         for (MPFAudioTrack audioTrack : audioTracks) {
             LOG.debug("Track start time: {}, track stop time: {}", audioTrack.getStartTime(), audioTrack.getStopTime());
-            // convert milliseconds to seconds
-            int trackStartFrame = (int) Math.floor(fps * audioTrack.getStartTime() / 1000.0);
-            int trackStopFrame  = (int) Math.ceil(fps * audioTrack.getStopTime()  / 1000.0);
+            int trackStartFrame = (int) Math.floor(fpms * audioTrack.getStartTime());
+            int trackStopFrame  = (int) Math.ceil(fpms * audioTrack.getStopTime());
 
             MPFVideoTrack videoTrack = new MPFVideoTrack(trackStartFrame, trackStopFrame,
-                    new HashMap<Integer, MPFImageLocation>(), audioTrack.getConfidence(), audioTrack.getDetectionProperties());
+                    new HashMap<>(), audioTrack.getConfidence(), audioTrack.getDetectionProperties());
 
             videoTrack.getFrameLocations().put(trackStartFrame, new MPFImageLocation(0, 0, 0, 0, audioTrack.getConfidence(), audioTrack.getDetectionProperties()));
 
