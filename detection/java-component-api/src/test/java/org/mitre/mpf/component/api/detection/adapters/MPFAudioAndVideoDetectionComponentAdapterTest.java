@@ -42,27 +42,37 @@ public class MPFAudioAndVideoDetectionComponentAdapterTest extends TestCase {
         MPFAudioAndVideoDetectionComponentAdapter component = new TestInstanceMPFAudioAndVideoDetectionComponentAdapter();
 
         HashMap<String,String> mediaProperties = new HashMap<>();
-        mediaProperties.put("DURATION","2000");
-        mediaProperties.put("FPS","20");
-        List<MPFVideoTrack> tracks = component.getDetections(new MPFVideoJob("TEST", "test", new HashMap<>(), mediaProperties, 0, 600));
+        mediaProperties.put("DURATION", "10000");
+        mediaProperties.put("FPS", "30");
+        mediaProperties.put("FRAME_COUNT", "300");
+
+        List<MPFVideoTrack> tracks = component.getDetections(new MPFVideoJob("TEST", "test", new HashMap<>(), mediaProperties, 0, 299));
+
         assertEquals(2, tracks.size());
-        MPFVideoTrack track1 = tracks.get(0);
-        assertEquals(10, track1.getStartFrame());
-        assertEquals(24, track1.getStopFrame());
+
+        assertEquals(0, tracks.get(0).getStartFrame()); // floor
+        assertEquals(90, tracks.get(0).getStopFrame());
+
+        assertEquals(105, tracks.get(1).getStartFrame());
+        assertEquals(241, tracks.get(1).getStopFrame()); // ceil
+
         // Audio detection on video files generate 1 detection at the first frame of the track.
-        assertEquals(1, track1.getFrameLocations().size());
+        assertEquals(1, tracks.get(0).getFrameLocations().size());
+        assertEquals(1, tracks.get(1).getFrameLocations().size());
     }
 
     @Test
-    public void testGetDetectionsFromVideoWithError() throws Exception {
+    public void testGetDetectionsFromVideoWithError() {
         MPFAudioAndVideoDetectionComponentAdapter component = new TestInstanceMPFAudioAndVideoDetectionComponentAdapter();
 
         HashMap<String,String> mediaProperties = new HashMap<>();
-        mediaProperties.put("DURATION","300");
-        mediaProperties.put("FPS","20");
+        mediaProperties.put("DURATION", "10000");
+        mediaProperties.put("FPS", "30");
+        mediaProperties.put("FRAME_COUNT", "300");
         List<MPFVideoTrack> tracks = new LinkedList<>();
         try {
-            tracks = component.getDetections(new MPFVideoJob("TEST", "TESTERROR", new HashMap<>(), mediaProperties, 0, 600));
+            tracks = component.getDetections(new MPFVideoJob("TEST", "TESTERROR", // invalid URI
+                    new HashMap<>(), mediaProperties, 0, 299));
             fail("getDetections was expected to throw an exception, and did not.");
         } catch (MPFComponentDetectionError e) {
             assertEquals(MPFDetectionError.MPF_DETECTION_FAILED, e.getDetectionError());
@@ -76,8 +86,8 @@ public class MPFAudioAndVideoDetectionComponentAdapterTest extends TestCase {
         @Override
         public List<MPFAudioTrack> getDetections(MPFAudioJob job) throws MPFComponentDetectionError {
             List<MPFAudioTrack> tracks = new LinkedList<>();
-            tracks.add(new MPFAudioTrack(500, 1200, 1.0f, Collections.emptyMap()));
-            tracks.add(new MPFAudioTrack(3000, 5000, 2.0f, Collections.emptyMap()));
+            tracks.add(new MPFAudioTrack(5, 3000, 0.9f, Collections.emptyMap()));
+            tracks.add(new MPFAudioTrack(3500, 8020, 0.7f, Collections.emptyMap()));
             if (job.getDataUri().equals("TESTERROR")) {
                 throw new MPFComponentDetectionError(MPFDetectionError.MPF_DETECTION_FAILED);
             }
