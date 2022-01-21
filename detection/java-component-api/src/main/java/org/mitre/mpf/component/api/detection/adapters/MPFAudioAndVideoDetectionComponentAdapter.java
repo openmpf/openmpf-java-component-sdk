@@ -56,7 +56,7 @@ public abstract class MPFAudioAndVideoDetectionComponentAdapter extends MPFDetec
             frameCount = Integer.valueOf(mediaProperties.get("FRAME_COUNT"));
         } catch (NumberFormatException ex) {
             LOG.error("Could not obtain video frame count.");
-            throw new MPFComponentDetectionError(MPFDetectionError.MPF_PROPERTY_IS_NOT_INT, "Could not obtain video frame count");
+            throw new MPFComponentDetectionError(MPFDetectionError.MPF_INVALID_PROPERTY, "FRAME_COUNT property is not an integer value.");
         }
 
         Float fps;
@@ -68,7 +68,7 @@ public abstract class MPFAudioAndVideoDetectionComponentAdapter extends MPFDetec
             fps = Float.valueOf(mediaProperties.get("FPS"));
         } catch (NumberFormatException ex) {
             LOG.error("Could not obtain video frame rate.");
-            throw new MPFComponentDetectionError(MPFDetectionError.MPF_PROPERTY_IS_NOT_FLOAT, "Could not obtain video frame rate.");
+            throw new MPFComponentDetectionError(MPFDetectionError.MPF_INVALID_PROPERTY, "FPS property is an invalid floating-point value.");
         }
 
         Integer duration;
@@ -80,7 +80,7 @@ public abstract class MPFAudioAndVideoDetectionComponentAdapter extends MPFDetec
             duration = Integer.valueOf(mediaProperties.get("DURATION"));
         }  catch (NumberFormatException ex) {
             LOG.error("Could not obtain duration.");
-            throw new MPFComponentDetectionError(MPFDetectionError.MPF_PROPERTY_IS_NOT_INT, "Could not obtain duration.");
+            throw new MPFComponentDetectionError(MPFDetectionError.MPF_INVALID_PROPERTY, "DURATION property is not an integer value.");
         }
 
         // determine actual start and stop frames
