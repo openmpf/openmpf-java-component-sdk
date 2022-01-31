@@ -56,7 +56,7 @@ public abstract class MPFAudioAndVideoDetectionComponentAdapter extends MPFDetec
             frameCount = Integer.valueOf(mediaProperties.get("FRAME_COUNT"));
         } catch (NumberFormatException ex) {
             LOG.error("Could not obtain video frame count.");
-            throw new MPFComponentDetectionError(MPFDetectionError.MPF_PROPERTY_IS_NOT_INT, "Could not obtain video frame count");
+            throw new MPFComponentDetectionError(MPFDetectionError.MPF_INVALID_PROPERTY, "FRAME_COUNT property is not an integer value.");
         }
 
         Float fps;
@@ -68,7 +68,7 @@ public abstract class MPFAudioAndVideoDetectionComponentAdapter extends MPFDetec
             fps = Float.valueOf(mediaProperties.get("FPS"));
         } catch (NumberFormatException ex) {
             LOG.error("Could not obtain video frame rate.");
-            throw new MPFComponentDetectionError(MPFDetectionError.MPF_PROPERTY_IS_NOT_FLOAT, "Could not obtain video frame rate.");
+            throw new MPFComponentDetectionError(MPFDetectionError.MPF_INVALID_PROPERTY, "FPS property is an invalid floating-point value.");
         }
 
         Integer duration;
@@ -80,23 +80,13 @@ public abstract class MPFAudioAndVideoDetectionComponentAdapter extends MPFDetec
             duration = Integer.valueOf(mediaProperties.get("DURATION"));
         }  catch (NumberFormatException ex) {
             LOG.error("Could not obtain duration.");
-            throw new MPFComponentDetectionError(MPFDetectionError.MPF_PROPERTY_IS_NOT_INT, "Could not obtain duration.");
+            throw new MPFComponentDetectionError(MPFDetectionError.MPF_INVALID_PROPERTY, "DURATION property is not an integer value.");
         }
 
         // determine actual start and stop frames
 
         int startFrame = job.getStartFrame();
         int stopFrame = job.getStopFrame();
-
-        if (startFrame < 0) {
-            LOG.error("Start frame of {} is < 0.", startFrame);
-            throw new MPFComponentDetectionError(MPFDetectionError.MPF_INVALID_START_FRAME, "Start frame < 0.");
-        }
-
-        if (stopFrame >= frameCount) {
-            LOG.error("Stop frame of {} is <= frame count of {}.", stopFrame, frameCount);
-            throw new MPFComponentDetectionError(MPFDetectionError.MPF_INVALID_STOP_FRAME, "Stop frame >= frame count.");
-        }
 
         float fpms =  fps / 1000;
         int startTime = (int) (startFrame / fpms);
