@@ -1,9 +1,9 @@
 {
   "componentName": "JavaAudioVideoExample",
-  "componentVersion": "6.3",
-  "middlewareVersion": "6.3",
+  "componentVersion": "7.0",
+  "middlewareVersion": "7.0",
   "sourceLanguage": "java",
-  "batchLibrary": "mpf-audiovideo-java-example-component-6.3.jar",
+  "batchLibrary": "mpf-audiovideo-java-example-component-7.0.jar",
   "environmentVariables": [],
   "algorithm": {
     "name": "JavaAudioVideo",
