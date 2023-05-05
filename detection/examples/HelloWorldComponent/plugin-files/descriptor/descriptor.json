@@ -9,6 +9,7 @@
     "name": "JavaHelloWorld",
     "description": "A simple example detection component.",
     "actionType": "DETECTION",
+    "outputChangedCounter" : 1,
     "requiresCollection": {
       "states": []
     },
