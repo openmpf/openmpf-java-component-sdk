@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <groupId>org.mitre.mpf</groupId>
-    <version>7.1</version>
+    <version>7.2</version>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>mpf-audiovideo-java-example-component</artifactId>
@@ -20,7 +20,7 @@
         <dependency>
             <groupId>org.mitre.mpf</groupId>
             <artifactId>mpf-java-component-api</artifactId>
-            <version>7.1</version>
+            <version>7.2</version>
         </dependency>
 
         <!-- Additional libraries may be brought in as needed.  They will be bundled into the
