@@ -1,14 +1,15 @@
 {
   "componentName": "JavaAudioVideoExample",
-  "componentVersion": "7.1",
-  "middlewareVersion": "7.1",
+  "componentVersion": "7.2",
+  "middlewareVersion": "7.2",
   "sourceLanguage": "java",
-  "batchLibrary": "mpf-audiovideo-java-example-component-7.1.jar",
+  "batchLibrary": "mpf-audiovideo-java-example-component-7.2.jar",
   "environmentVariables": [],
   "algorithm": {
     "name": "JavaAudioVideo",
     "description": "An example detection component for audio processing of audio and video media.",
     "actionType": "DETECTION",
+    "outputChangedCounter" : 1,
     "requiresCollection": {
       "states": []
     },
