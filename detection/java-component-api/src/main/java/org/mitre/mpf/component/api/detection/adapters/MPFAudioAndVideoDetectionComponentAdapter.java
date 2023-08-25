@@ -141,6 +141,4 @@ public abstract class MPFAudioAndVideoDetectionComponentAdapter extends MPFDetec
     public boolean supports(MPFDataType dataType) {
         return (MPFDataType.AUDIO == dataType) || (MPFDataType.VIDEO == dataType);
     }
-
-    public abstract String getDetectionType();
 }

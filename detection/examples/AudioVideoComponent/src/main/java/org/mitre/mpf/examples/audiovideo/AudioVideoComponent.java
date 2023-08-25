@@ -94,8 +94,4 @@ public class AudioVideoComponent extends MPFAudioAndVideoDetectionComponentAdapt
 
         return tracks;
     }
-
-    public String getDetectionType() {
-        return "AUDIOVIDEO";
-    }
 }

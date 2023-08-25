@@ -93,12 +93,6 @@ public class MPFAudioAndVideoDetectionComponentAdapterTest extends TestCase {
             }
             return tracks;
         }
-
-        @Override
-        public String getDetectionType() {
-            return "TEST";
-        }
-
     }
 
 }

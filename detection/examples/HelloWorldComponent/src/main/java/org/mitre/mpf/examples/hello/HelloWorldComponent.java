@@ -282,8 +282,4 @@ public class HelloWorldComponent extends MPFDetectionComponentBase {
         }
         return false;
     }
-
-    public String getDetectionType() {
-        return "HELLO";
-    }
 }
