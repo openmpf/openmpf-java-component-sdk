@@ -89,11 +89,4 @@ public interface MPFDetectionComponentInterface extends MPFComponentInterface {
      * @return  True if the data type is supported by this component.
      */
     boolean supports(MPFDataType dataType);
-
-    /**
-     * Gets the detection type for the component.
-     *
-     * @return The detection type.
-     */
-    String getDetectionType();
 }
