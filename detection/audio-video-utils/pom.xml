@@ -33,7 +33,7 @@
     <parent>
         <artifactId>openmpf-java-component-sdk</artifactId>
         <groupId>org.mitre.mpf</groupId>
-        <version>7.2</version>
+        <version>8.0</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
@@ -45,7 +45,7 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>1.7.25</version>
+            <version>1.8.05</version>
         </dependency>
     </dependencies>
 </project>
