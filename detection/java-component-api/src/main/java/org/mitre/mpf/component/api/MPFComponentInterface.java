@@ -32,8 +32,11 @@ package org.mitre.mpf.component.api;
  * that all types of components must follow.  Currently, the only supported type of component is "DETECTION", so all
  * components must implement the
  * {@link org.mitre.mpf.component.api.detection.MPFDetectionComponentInterface MPFDetectionComponentInterface}.
+ * <p>
+ * Extends {@link AutoCloseable} so that Spring will automatically call {@link #close} on the
+ * component.
  */
-public interface MPFComponentInterface {
+public interface MPFComponentInterface extends AutoCloseable {
 
     /**
      * Returns the type of component this is.
